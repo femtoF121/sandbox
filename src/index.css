@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-tablet: 799px;
+  --breakpoint-desktop: 1379px;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  /* background: no-repeat
+    linear-gradient(140deg, rgb(12, 71, 94) 0%, rgb(45, 122, 111) 100%); */
+  min-height: 100vh;
+  @apply bg-gray-100;
+}
+
+button {
+  cursor: pointer;
+}
+
+.items-grid {
+  @apply grid gap-x-[max(2%,1rem)] gap-y-[0.75rem] tablet:gap-y-[1.5rem] desktop:grid-cols-[repeat(4,minmax(275px,1fr))] tablet:grid-cols-[repeat(3,minmax(25px,1fr))] grid-cols-[repeat(2,minmax(155px,1fr))];
+}

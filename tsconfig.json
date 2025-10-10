@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@taskList/*": ["./src/projects/taskList/*"],
+      "@weather/*": ["./src/projects/weather/*"]
+    },
+    "lib": ["es2015", "DOM"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
