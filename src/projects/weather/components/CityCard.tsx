@@ -8,15 +8,16 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { fetchWeatherByCity, getIconUrl } from "@weather/api/weather";
-import { ComponentProps, FC, useContext } from "react";
+import { ComponentProps, FC, useContext, useState } from "react";
 import { IoMdRefresh } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 import { RoutesEnum } from "@/router/routes";
 import { WeatherContext } from "@weather/context";
 import { City } from "@weather/types/city";
 import { FaWind } from "react-icons/fa";
-import { FaDroplet, FaRegTrashCan } from "react-icons/fa6";
+import { FaCheck, FaDroplet, FaRegTrashCan } from "react-icons/fa6";
 
 interface CityCardProps extends ComponentProps<"div"> {
   city: City;
@@ -27,6 +28,7 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
   const { name: cityName } = city;
   const { deleteCity } = useContext(WeatherContext);
   const navigate = useNavigate();
+  const [confirmDeletion, setConfirmDeletion] = useState(false);
   const { data, isError, isLoading, refetch, isFetching } = useQuery({
     queryKey: ["weather", cityName],
     queryFn: () => fetchWeatherByCity(cityName),
@@ -97,21 +99,44 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
         </CardActionArea>
       )}
       <CardActions className="!px-4 !pb-4">
-        <Button
-          onClick={() => refetch()}
-          variant="contained"
-          endIcon={<IoMdRefresh />}
-        >
-          Refresh
-        </Button>
-        <Button
-          onClick={() => deleteCity(id)}
-          variant="outlined"
-          color="error"
-          endIcon={<FaRegTrashCan size={16} />}
-        >
-          Delete
-        </Button>
+        {!confirmDeletion ? (
+          <>
+            <Button
+              onClick={() => refetch()}
+              variant="contained"
+              endIcon={<IoMdRefresh />}
+            >
+              Refresh
+            </Button>
+            <Button
+              onClick={() => setConfirmDeletion(true)}
+              variant="outlined"
+              color="error"
+              endIcon={<FaRegTrashCan size={16} />}
+            >
+              Delete
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              onClick={() => deleteCity(id)}
+              variant="contained"
+              color="success"
+              endIcon={<FaCheck size={16} />}
+            >
+              Confirm
+            </Button>
+            <Button
+              onClick={() => setConfirmDeletion(false)}
+              variant="contained"
+              color="error"
+              endIcon={<IoClose size={20} />}
+            >
+              Cancel
+            </Button>
+          </>
+        )}
       </CardActions>
     </Card>
   );
