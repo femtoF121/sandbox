@@ -3,10 +3,12 @@
 @theme {
   --breakpoint-tablet: 799px;
   --breakpoint-desktop: 1379px;
+
+  --font-nunito: "Nunito", sans-serif;
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
