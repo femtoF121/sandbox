@@ -1,8 +1,9 @@
 import { useControlledList } from "@/hooks/useControlledList";
-import AddCityPanel from "@weather/components/AddCityPanel";
-import CityCard from "@weather/components/CityCard";
 import { WeatherContext } from "@weather/context";
 import { City } from "@weather/types/city";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import WeatherDetailed from "./pages/WeatherDetailed";
 
 const CITIES_STORAGE_KEY = "cities";
 
@@ -15,12 +16,10 @@ const WeatherApp = () => {
 
   return (
     <WeatherContext value={{ cities, addCity, deleteCity }}>
-      <div className="p-4 space-y-4 mx-auto max-w-[860px]">
-        <AddCityPanel />
-        {cities.map(({ id, ...city }) => (
-          <CityCard key={id} id={id} city={city} />
-        ))}
-      </div>
+      <Routes>
+        <Route path={"/weather"} element={<Home />} />
+        <Route path={"/weather/:city"} element={<WeatherDetailed />} />
+      </Routes>
     </WeatherContext>
   );
 };

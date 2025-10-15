@@ -43,7 +43,11 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
         </Typography>
       ) : (
         <CardActionArea
-          onClick={() => navigate(RoutesEnum.WEATHER + "/" + data.name)}
+          onClick={() =>
+            navigate(RoutesEnum.WEATHER + "/" + data.name, {
+              state: { enteredCityName: cityName },
+            })
+          }
         >
           <CardContent className="flex justify-between">
             {isLoading || isFetching ? (
