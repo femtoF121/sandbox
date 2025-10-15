@@ -1,14 +1,14 @@
+import { ItemType } from "@/types/item";
 import { useEffect, useState } from "react";
 
 export const useControlledList = <T>(storageKey: string) => {
-  type ItemType = T & { id: string };
-  const [items, setItems] = useState<ItemType[]>(() => {
+  const [items, setItems] = useState<ItemType<T>[]>(() => {
     const itemsFromStorage = localStorage.getItem(storageKey);
     return itemsFromStorage ? JSON.parse(itemsFromStorage) : [];
   });
 
   const addItem = (item: T) => {
-    const newItem: ItemType = {
+    const newItem: ItemType<T> = {
       id: crypto.randomUUID(),
       ...item,
     };
