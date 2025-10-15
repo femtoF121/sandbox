@@ -7,6 +7,7 @@ const queryClient = new QueryClient();
 
 function App() {
   const theme = createTheme({
+    shape: { borderRadius: 8 },
     typography: {
       fontFamily: "'Nunito', sans-serif",
     },

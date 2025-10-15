@@ -25,7 +25,7 @@ const WeatherDetailed = () => {
     return (
       <header className="flex items-center py-6 px-4">
         <button
-          className="rounded-full p-3 hover:bg-gray-200 active:bg-gray-300 transition-colors"
+          className="rounded-full p-3 bg-white hover:bg-gray-200 active:bg-gray-300 transition-colors"
           onClick={() => navigate("..", { relative: "path" })}
         >
           <IoArrowBackOutline size={24} />
@@ -35,7 +35,7 @@ const WeatherDetailed = () => {
           component="h1"
           className="flex-1 pr-12 text-center"
         >
-          {city}
+          <span className="bg-white rounded-lg px-4">{city}</span>
         </Typography>
       </header>
     );
