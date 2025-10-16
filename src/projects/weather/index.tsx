@@ -1,8 +1,9 @@
 import { useControlledList } from "@/hooks/useControlledList";
+import { RoutesEnum } from "@/router/routes";
 import { WeatherContext } from "@weather/context";
 import { City } from "@weather/types/city";
 import { Route, Routes } from "react-router-dom";
-import bgTexture from "./assets/weather-texture.svg";
+import WeatherLayout from "./layout";
 import Home from "./pages/Home";
 import WeatherDetailed from "./pages/WeatherDetailed";
 
@@ -17,17 +18,15 @@ const WeatherApp = () => {
 
   return (
     <WeatherContext value={{ cities, addCity, deleteCity }}>
-      <div
-        style={{
-          background: `url(${bgTexture}), #4d4d4d`,
-          minHeight: "100vh",
-        }}
-      >
-        <Routes>
-          <Route path={"/weather"} element={<Home />} />
-          <Route path={"/weather/:city"} element={<WeatherDetailed />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route element={<WeatherLayout />}>
+          <Route path={RoutesEnum.WEATHER} element={<Home />} />
+          <Route
+            path={RoutesEnum.DETAILED_WEATHER}
+            element={<WeatherDetailed />}
+          />
+        </Route>
+      </Routes>
     </WeatherContext>
   );
 };
