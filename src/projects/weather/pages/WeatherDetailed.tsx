@@ -23,9 +23,9 @@ const WeatherDetailed = () => {
 
   const Header = () => {
     return (
-      <header className="flex items-center py-6 px-4">
+      <header className="relative pl-14 sm:p-0">
         <button
-          className="rounded-full p-3 bg-white hover:bg-gray-200 active:bg-gray-300 transition-colors"
+          className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full p-3 bg-white hover:bg-gray-200 active:bg-gray-300 transition-colors"
           onClick={() => navigate("..", { relative: "path" })}
         >
           <IoArrowBackOutline size={24} />
@@ -33,9 +33,9 @@ const WeatherDetailed = () => {
         <Typography
           variant="h3"
           component="h1"
-          className="flex-1 pr-12 text-center"
+          className="!ml-auto sm:!mx-auto text-center bg-white rounded-lg px-4 block w-fit"
         >
-          <span className="bg-white rounded-lg px-4">{city}</span>
+          {city}
         </Typography>
       </header>
     );
@@ -46,14 +46,14 @@ const WeatherDetailed = () => {
   return (
     <>
       <Header />
-      <Card className="max-w-[860px] bg-white mx-auto !rounded-2xl py-6 px-10 mt-2">
+      <Card className="max-w-[860px] bg-white mx-auto !rounded-2xl py-6 px-10 mt-6">
         {isLoading || isFetching || !data ? (
           <div className="flex justify-center">
             <CircularProgress size={64} />
           </div>
         ) : (
           <div>
-            <div className="flex justify-around items-center ml-[-24px]">
+            <div className="flex justify-between sm:justify-around items-center mr-[-24px]">
               <TemperatureModule data={data} />
               <WeatherImageModule data={data} />
             </div>

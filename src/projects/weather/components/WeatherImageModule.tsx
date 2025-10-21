@@ -14,12 +14,18 @@ const WeatherImageModule: FC<WeatherImageModuleProps> = ({
   ...rest
 }) => {
   return (
-    <div {...rest} className={clsx(className, "relative w-fit -mt-5")}>
+    <div
+      {...rest}
+      className={clsx(className, "relative w-fit -mt-10 text-base sm:text-2xl")}
+    >
       <img
         src={getIconUrl(data.weather[0].icon, 4)}
-        className="object-contain h-fit"
+        className="object-contain h-fit max-h-40 sm:max-h-full"
       />
-      <Typography variant="h5" className="absolute w-full text-center bottom-5">
+      <Typography
+        variant="inherit"
+        className="absolute w-full text-center bottom-[10%]"
+      >
         {data.weather[0].description[0].toUpperCase() +
           data.weather[0].description.slice(1)}
       </Typography>

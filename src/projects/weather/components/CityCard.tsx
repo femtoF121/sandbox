@@ -51,17 +51,17 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
         >
           <CardContent className="flex justify-between">
             {isLoading || isFetching || !data ? (
-              <div role="status" className="max-w-sm animate-pulse">
-                <div className="h-10 bg-gray-200 rounded-lg dark:bg-gray-300 w-72 mb-4" />
-                <div className="h-16 bg-gray-200 rounded-xl dark:bg-gray-300 max-w-[360px] mb-2.5" />
+              <div role="status" className="w-full animate-pulse">
+                <div className="h-10 bg-gray-300 rounded-lg w-full sm:max-w-72 mb-4" />
+                <div className="h-16 bg-gray-300 rounded-xl w-full sm:max-w-[400px] mb-2.5" />
                 <span className="sr-only">Loading...</span>
               </div>
             ) : (
-              <div>
+              <div className="w-full">
                 <Typography variant="h3" component="h2">
                   {data.name}
                 </Typography>
-                <div className="flex gap-12 mt-2">
+                <div className="flex gap-12 mt-2 items-center justify-between sm:justify-start">
                   <div>
                     <Typography variant="h4">
                       {Math.round(data.main.temp)}°C
@@ -70,18 +70,12 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
                       Feels like: {Math.round(data.main.feels_like)}°C
                     </Typography>
                   </div>
-                  <div>
-                    <Typography
-                      variant="h5"
-                      className="flex items-center gap-3"
-                    >
+                  <div className="text-base sm:text-2xl flex flex-col [&>*]:flex [&>*]:items-center [&>*]:gap-3">
+                    <Typography variant="inherit">
                       <FaDroplet size={20} className="text-blue-500" />{" "}
                       {data.main.humidity}%
                     </Typography>
-                    <Typography
-                      variant="h5"
-                      className="flex items-center gap-3"
-                    >
+                    <Typography variant="inherit">
                       <FaWind size={20} className="text-slate-400" />{" "}
                       {data.wind.speed} m/s
                     </Typography>
@@ -90,13 +84,16 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
               </div>
             )}
             {isLoading || isFetching || !data ? (
-              <div role="status" className="max-w-sm animate-pulse">
-                <div className="size-24 rounded-full bg-gray-200  dark:bg-gray-300 mb-4" />
+              <div
+                role="status"
+                className="max-w-sm animate-pulse hidden sm:block"
+              >
+                <div className="size-32 rounded-full bg-gray-300" />
               </div>
             ) : (
               <img
-                src={getIconUrl(data.weather[0].icon, 2)}
-                className="object-contain h-fit"
+                src={getIconUrl(data.weather[0].icon, 4)}
+                className="absolute top-0 right-0 size-20 sm:size-fit"
               />
             )}
           </CardContent>

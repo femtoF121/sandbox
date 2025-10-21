@@ -14,10 +14,16 @@ const TemperatureModule: FC<TemperatureModuleProps> = ({
 }) => {
   return (
     <div {...rest} className={clsx("text-center", className)}>
-      <Typography variant="h1">{Math.round(data.main.temp)}°C</Typography>
-      <Typography variant="h5">
-        Feels like: {Math.round(data.main.feels_like)}°C
-      </Typography>
+      <div className="text-6xl sm:text-8xl bold">
+        <Typography variant="inherit">
+          {Math.round(data.main.temp)}°C
+        </Typography>
+      </div>
+      <div className="text-base sm:text-2xl">
+        <Typography variant="inherit">
+          Feels like: {Math.round(data.main.feels_like)}°C
+        </Typography>
+      </div>
     </div>
   );
 };

@@ -18,23 +18,28 @@ const SunRiseSetModule: FC<SunRiseSetModuleProps> = ({
       {...rest}
       className={clsx(
         className,
-        "grid grid-cols-2 gap-y-2 gap-x-10 justify-items-center h-fit"
+        "flex justify-between items-center gap-3 h-fit text-center"
       )}
     >
-      <FiSunrise size={48} className="text-orange-300" />
-      <FiSunset size={48} className="text-orange-300" />
-      <Typography variant="body2">
-        {new Date(data.sys.sunrise * 1000).toLocaleTimeString("uk", {
-          hour: "numeric",
-          minute: "numeric",
-        })}
-      </Typography>
-      <Typography variant="body2">
-        {new Date(data.sys.sunset * 1000).toLocaleTimeString("uk", {
-          hour: "numeric",
-          minute: "numeric",
-        })}
-      </Typography>
+      <div>
+        <FiSunrise size={48} className="text-amber-300" />
+        <Typography variant="body2">
+          {new Date(data.sys.sunrise * 1000).toLocaleTimeString("uk", {
+            hour: "numeric",
+            minute: "numeric",
+          })}
+        </Typography>
+      </div>
+      <div className="border-t-4 border-dashed flex-1 sm:w-16 border-amber-300" />
+      <div>
+        <FiSunset size={48} className="text-amber-300" />
+        <Typography variant="body2">
+          {new Date(data.sys.sunset * 1000).toLocaleTimeString("uk", {
+            hour: "numeric",
+            minute: "numeric",
+          })}
+        </Typography>
+      </div>
     </div>
   );
 };

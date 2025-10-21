@@ -19,6 +19,12 @@ const AddCityPanel = () => {
           placeholder="Enter city name"
           value={value}
           className="w-full"
+          sx={{
+            "& .MuiInputBase-input": {
+              fontSize: 22,
+              padding: "12px 16px",
+            },
+          }}
           size="medium"
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => {

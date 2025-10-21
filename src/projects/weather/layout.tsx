@@ -6,8 +6,8 @@ const WeatherLayout = () => {
     <div
       style={{
         background: `url(${bgTexture}), #4d4d4d`,
-        minHeight: "100vh",
       }}
+      className="min-h-screen p-4"
     >
       <Outlet />
     </div>
