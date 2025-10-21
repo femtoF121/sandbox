@@ -12,5 +12,5 @@ export default defineConfig({
       "@weather": path.resolve(__dirname, "./src/projects/weather"),
     },
   },
-  base: process.env.VITE_BASE_PATH || "/sandbox",
+  base: process.env.VITE_BASE_PATH || "/",
 });

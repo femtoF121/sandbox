@@ -13,17 +13,19 @@ const AddTaskPanel = () => {
 
   return (
     <div className="mx-auto flex gap-4 w-full">
-      <TextField
-        type="text"
-        placeholder="New task"
-        value={value}
-        className="flex-1 bg-white"
-        size="medium"
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleAddTask();
-        }}
-      />
+      <div className="flex-1 bg-white rounded-lg">
+        <TextField
+          type="text"
+          placeholder="New task"
+          value={value}
+          className="w-full"
+          size="medium"
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleAddTask();
+          }}
+        />
+      </div>
       <Button
         variant="contained"
         size="medium"
