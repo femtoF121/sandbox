@@ -47,7 +47,7 @@ const WeatherDetailed = () => {
     <>
       <Header />
       <Card className="max-w-[860px] bg-white mx-auto !rounded-2xl py-6 px-10 mt-2">
-        {isLoading || isFetching ? (
+        {isLoading || isFetching || !data ? (
           <div className="flex justify-center">
             <CircularProgress size={64} />
           </div>

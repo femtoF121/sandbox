@@ -17,7 +17,7 @@ const WeatherApp = () => {
   } = useControlledList<City>(CITIES_STORAGE_KEY);
 
   return (
-    <WeatherContext value={{ cities, addCity, deleteCity }}>
+    <WeatherContext.Provider value={{ cities, addCity, deleteCity }}>
       <Routes>
         <Route element={<WeatherLayout />}>
           <Route path={RoutesEnum.WEATHER} element={<Home />} />
@@ -27,7 +27,7 @@ const WeatherApp = () => {
           />
         </Route>
       </Routes>
-    </WeatherContext>
+    </WeatherContext.Provider>
   );
 };
 

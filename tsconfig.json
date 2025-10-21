@@ -1,20 +1,50 @@
+// {
+//   "compilerOptions": {
+//     "module": "es2015",
+//     "noImplicitAny": true,
+//     "removeComments": true,
+//     "esModuleInterop": true,
+//     "preserveConstEnums": true,
+//     "moduleResolution": "bundler",
+//     "sourceMap": true,
+//     "jsx": "react-jsx",
+//     "allowJs": false,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["./src/*"],
+//       "@taskList/*": ["./src/projects/taskList/*"],
+//       "@weather/*": ["./src/projects/weather/*"]
+//     },
+//     "target": "esnext",
+//     "lib": ["ESNext", "DOM"]
+//   },
+//   "include": ["src/**/*"],
+//   "exclude": ["node_modules"]
+// }
+
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "allowJs": false,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["react", "react-dom"],
+    "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
+    "outDir": "./dist",
+    "rootDir": "./src",
     "paths": {
       "@/*": ["./src/*"],
       "@taskList/*": ["./src/projects/taskList/*"],
       "@weather/*": ["./src/projects/weather/*"]
     },
-    "lib": ["es2015", "DOM"]
+    "noEmit": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

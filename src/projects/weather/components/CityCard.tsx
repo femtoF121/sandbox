@@ -44,13 +44,13 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
       ) : (
         <CardActionArea
           onClick={() =>
-            navigate(RoutesEnum.WEATHER + "/" + data.name, {
+            navigate(RoutesEnum.WEATHER + "/" + data?.name, {
               state: { enteredCityName: cityName },
             })
           }
         >
           <CardContent className="flex justify-between">
-            {isLoading || isFetching ? (
+            {isLoading || isFetching || !data ? (
               <div role="status" className="max-w-sm animate-pulse">
                 <div className="h-10 bg-gray-200 rounded-lg dark:bg-gray-300 w-72 mb-4" />
                 <div className="h-16 bg-gray-200 rounded-xl dark:bg-gray-300 max-w-[360px] mb-2.5" />
@@ -89,7 +89,7 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
                 </div>
               </div>
             )}
-            {isLoading || isFetching ? (
+            {isLoading || isFetching || !data ? (
               <div role="status" className="max-w-sm animate-pulse">
                 <div className="size-24 rounded-full bg-gray-200  dark:bg-gray-300 mb-4" />
               </div>

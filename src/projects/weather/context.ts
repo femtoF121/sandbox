@@ -8,4 +8,6 @@ type WeatherContextType<T> = {
   deleteCity: (id: string) => void;
 };
 
-export const WeatherContext = createContext<WeatherContextType<City>>(null);
+export const WeatherContext = createContext<WeatherContextType<City>>(
+  {} as WeatherContextType<City>
+);

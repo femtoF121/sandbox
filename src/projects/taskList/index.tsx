@@ -25,7 +25,9 @@ const TaskList = () => {
   };
 
   return (
-    <TaskListContext value={{ tasks, addTask, deleteTask, toggleTask }}>
+    <TaskListContext.Provider
+      value={{ tasks, addTask, deleteTask, toggleTask }}
+    >
       <Header />
       <div className="flex flex-col items-center p-6 pt-0 [&>*]:w-full max-w-[860px] mx-auto">
         <div className="pt-6 shadow-[0_15px_10px_5px] shadow-gray-100 bg-gray-100 sticky top-0 z-10">
@@ -38,7 +40,7 @@ const TaskList = () => {
           ))}
         </div>
       </div>
-    </TaskListContext>
+    </TaskListContext.Provider>
   );
 };
 
