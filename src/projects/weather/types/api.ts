@@ -1,5 +1,9 @@
 export type WeatherResponse = {
   name: string;
+  coord: {
+    lon: number;
+    lat: number;
+  };
   main: {
     temp: number;
     feels_like: number;
