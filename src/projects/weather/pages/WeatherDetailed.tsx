@@ -1,5 +1,5 @@
 import { Button, Card, CircularProgress, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { IoMdRefresh } from "react-icons/io";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -16,6 +16,7 @@ const WeatherDetailed = () => {
     state: { enteredCityName },
   } = useLocation();
 
+  const queryClient = useQueryClient();
   const { data, isError, isLoading, refetch } = useQuery({
     queryKey: ["weather", enteredCityName],
     queryFn: () => fetchWeatherByCity(enteredCityName),
@@ -42,7 +43,7 @@ const WeatherDetailed = () => {
     );
   };
 
-  if (isError) navigate("..", { relative: "path" });
+  if (isError || !enteredCityName) navigate("..", { relative: "path" });
 
   return (
     <>
@@ -59,10 +60,15 @@ const WeatherDetailed = () => {
               <WeatherImageModule data={data} />
             </div>
             <AdditionalInfoModule data={data} className="my-4" />
-            <TemperatureChart city={data.name} />
+            <TemperatureChart city={enteredCityName} />
             <div className="mt-4 flex justify-between items-end">
               <Button
-                onClick={() => refetch()}
+                onClick={() => {
+                  refetch();
+                  queryClient.invalidateQueries({
+                    queryKey: ["hourlyWeather", enteredCityName],
+                  });
+                }}
                 variant="contained"
                 endIcon={<IoMdRefresh />}
               >

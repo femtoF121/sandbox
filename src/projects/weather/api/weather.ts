@@ -31,10 +31,9 @@ export const fetchHourlyWeather = async (city: string) => {
     .slice(0, 8)
     .map(
       (item: { dt: number; main: { temp: number; feels_like: number } }) => ({
-        time: new Date(item.dt * 1000).toLocaleTimeString(navigator.language, {
-          hour: "numeric",
-          minute: "numeric",
-        }),
+        time:
+          new Date(item.dt * 1000).getUTCHours().toString().padStart(2, "0") +
+          ":00",
         temp: item.main.temp,
       })
     );
