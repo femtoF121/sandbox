@@ -1,5 +1,9 @@
 export type WeatherResponse = {
   name: string;
+  coord: {
+    lon: number;
+    lat: number;
+  };
   main: {
     temp: number;
     feels_like: number;
@@ -7,6 +11,7 @@ export type WeatherResponse = {
     humidity: number;
   };
   weather: { description: string; icon: string }[];
+  timezone: number;
   wind: { speed: number; deg: number };
   dt: number;
   sys: { country: string; sunrise: number; sunset: number };
