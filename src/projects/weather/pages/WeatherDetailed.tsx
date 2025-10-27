@@ -5,6 +5,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { fetchWeatherByCity } from "../api/weather";
 import AdditionalInfoModule from "../components/AdditionalInfoModule";
+import { TemperatureChart } from "../components/TemperatureChart";
 import TemperatureModule from "../components/TemperatureModule";
 import WeatherImageModule from "../components/WeatherImageModule";
 
@@ -15,7 +16,7 @@ const WeatherDetailed = () => {
     state: { enteredCityName },
   } = useLocation();
 
-  const { data, isError, isLoading, refetch, isFetching } = useQuery({
+  const { data, isError, isLoading, refetch } = useQuery({
     queryKey: ["weather", enteredCityName],
     queryFn: () => fetchWeatherByCity(enteredCityName),
     refetchOnWindowFocus: false,
@@ -47,7 +48,7 @@ const WeatherDetailed = () => {
     <>
       <Header />
       <Card className="max-w-[860px] bg-white mx-auto !rounded-2xl py-6 px-10 mt-6">
-        {isLoading || isFetching || !data ? (
+        {isLoading || !data ? (
           <div className="flex justify-center">
             <CircularProgress size={64} />
           </div>
@@ -57,21 +58,27 @@ const WeatherDetailed = () => {
               <TemperatureModule data={data} />
               <WeatherImageModule data={data} />
             </div>
-            <AdditionalInfoModule data={data} className="my-6" />
-            <Button
-              onClick={() => refetch()}
-              variant="contained"
-              endIcon={<IoMdRefresh />}
-            >
-              Refresh
-            </Button>
-            <Typography variant="subtitle2">
-              Updated:{" "}
-              {new Date(data.dt * 1000).toLocaleTimeString("uk", {
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </Typography>
+            <AdditionalInfoModule data={data} className="my-4" />
+            <TemperatureChart city={data.name} />
+            <div className="mt-4 flex justify-between items-end">
+              <Button
+                onClick={() => refetch()}
+                variant="contained"
+                endIcon={<IoMdRefresh />}
+              >
+                Refresh
+              </Button>
+              <Typography variant="subtitle2">
+                Updated:{" "}
+                {new Date(data.dt * 1000).toLocaleTimeString(
+                  navigator.language,
+                  {
+                    hour: "numeric",
+                    minute: "numeric",
+                  }
+                )}
+              </Typography>
+            </div>
           </div>
         )}
       </Card>

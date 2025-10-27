@@ -11,13 +11,31 @@ export const fetchWeatherByCity = async (
     `${BASE_URL}/weather?q=${city}&units=metric&appid=${API_KEY}`
   );
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
+  if (!res.ok) throw new Error("Something went wrong");
 
   return res.json();
 };
 
 export const getIconUrl = (icon: string, scale?: number) => {
   return `${ICON_URL}/${icon}${scale ? "@" + scale + "x" : ""}.png`;
+};
+
+export const fetchHourlyWeather = async (city: string) => {
+  const res = await fetch(
+    `${BASE_URL}/forecast?q=${city}&units=metric&appid=${API_KEY}`
+  );
+  if (!res.ok) throw new Error("Something went wrong");
+  const data = await res.json();
+
+  return data.list
+    .slice(0, 8)
+    .map(
+      (item: { dt: number; main: { temp: number; feels_like: number } }) => ({
+        time: new Date(item.dt * 1000).toLocaleTimeString(navigator.language, {
+          hour: "numeric",
+          minute: "numeric",
+        }),
+        temp: item.main.temp,
+      })
+    );
 };
