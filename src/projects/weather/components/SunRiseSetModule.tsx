@@ -24,23 +24,26 @@ const SunRiseSetModule: FC<SunRiseSetModuleProps> = ({
       <div>
         <FiSunrise size={48} className="text-amber-300" />
         <Typography variant="body2">
-          {new Date(data.sys.sunrise * 1000).toLocaleTimeString("uk", {
-            hour: "numeric",
-            minute: "numeric",
-          })}
+          {getUTCTimeString(data.sys.sunrise, data.timezone)}
         </Typography>
       </div>
       <div className="border-t-4 border-dashed flex-1 sm:w-16 border-amber-300" />
       <div>
         <FiSunset size={48} className="text-amber-300" />
         <Typography variant="body2">
-          {new Date(data.sys.sunset * 1000).toLocaleTimeString("uk", {
-            hour: "numeric",
-            minute: "numeric",
-          })}
+          {getUTCTimeString(data.sys.sunset, data.timezone)}
         </Typography>
       </div>
     </div>
+  );
+};
+
+const getUTCTimeString = (timestamp: number, timezone: number = 0) => {
+  const utcDate = new Date((timestamp + timezone) * 1000);
+  return (
+    utcDate.getUTCHours().toString().padStart(2, "0") +
+    ":" +
+    utcDate.getUTCMinutes().toString().padStart(2, "0")
   );
 };
 

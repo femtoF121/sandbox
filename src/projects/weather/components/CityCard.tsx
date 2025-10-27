@@ -29,7 +29,7 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
   const { deleteCity } = useContext(WeatherContext);
   const navigate = useNavigate();
   const [confirmDeletion, setConfirmDeletion] = useState(false);
-  const { data, isError, isLoading, refetch, isFetching } = useQuery({
+  const { data, isError, isLoading, refetch } = useQuery({
     queryKey: ["weather", cityName],
     queryFn: () => fetchWeatherByCity(cityName),
     refetchOnWindowFocus: false,
@@ -50,7 +50,7 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
           }
         >
           <CardContent className="flex justify-between">
-            {isLoading || isFetching || !data ? (
+            {isLoading || !data ? (
               <div role="status" className="w-full animate-pulse">
                 <div className="h-10 bg-gray-300 rounded-lg w-full sm:max-w-72 mb-4" />
                 <div className="h-16 bg-gray-300 rounded-xl w-full sm:max-w-[400px] mb-2.5" />
@@ -83,7 +83,7 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
                 </div>
               </div>
             )}
-            {isLoading || isFetching || !data ? (
+            {isLoading || !data ? (
               <div
                 role="status"
                 className="max-w-sm animate-pulse hidden sm:block"
