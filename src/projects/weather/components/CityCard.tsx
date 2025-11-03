@@ -35,91 +35,89 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
     refetchOnWindowFocus: false,
   });
 
-  return (
-    <Card {...rest} className="bg-white">
-      {isError ? (
-        <Typography variant="h4" className="p-4 pb-0">
-          {cityName} - Error
-        </Typography>
-      ) : (
-        <CardActionArea
-          onClick={() =>
-            navigate(RoutesEnum.WEATHER + "/" + data?.name, {
-              state: { enteredCityName: cityName },
-            })
-          }
-        >
-          <CardContent className="flex justify-between">
-            {isLoading || !data ? (
-              <div role="status" className="w-full animate-pulse">
-                <div className="h-10 bg-gray-300 rounded-lg w-full sm:max-w-72 mb-4" />
-                <div className="h-16 bg-gray-300 rounded-xl w-full sm:max-w-[400px] mb-2.5" />
-                <span className="sr-only">Loading...</span>
-              </div>
-            ) : (
-              <div className="w-full">
-                <Typography variant="h3" component="h2">
-                  {data.name}
+  const navigateToDetails = () =>
+    navigate(RoutesEnum.WEATHER + "/" + data?.name, {
+      state: { enteredCityName: cityName },
+    });
+
+  const Content = () => {
+    return (
+      <CardContent className="flex justify-between">
+        {isLoading || !data ? (
+          <div role="status" className="w-full animate-pulse">
+            <div className="h-10 bg-gray-300 rounded-lg w-full sm:max-w-72 mb-4" />
+            <div className="h-16 bg-gray-300 rounded-xl w-full sm:max-w-[400px] mb-2.5" />
+            <span className="sr-only">Loading...</span>
+          </div>
+        ) : (
+          <div className="w-full">
+            <Typography variant="h3" component="h2">
+              {data.name}
+            </Typography>
+            <div className="flex gap-12 mt-2 items-center justify-between sm:justify-start">
+              <div>
+                <Typography variant="h4">
+                  {Math.round(data.main.temp)}°C
                 </Typography>
-                <div className="flex gap-12 mt-2 items-center justify-between sm:justify-start">
-                  <div>
-                    <Typography variant="h4">
-                      {Math.round(data.main.temp)}°C
-                    </Typography>
-                    <Typography>
-                      Feels like: {Math.round(data.main.feels_like)}°C
-                    </Typography>
-                  </div>
-                  <div className="text-base sm:text-2xl flex flex-col [&>*]:flex [&>*]:items-center [&>*]:gap-3">
-                    <Typography variant="inherit">
-                      <FaDroplet size={20} className="text-blue-500" />{" "}
-                      {data.main.humidity}%
-                    </Typography>
-                    <Typography variant="inherit">
-                      <FaWind size={20} className="text-slate-400" />{" "}
-                      {data.wind.speed} m/s
-                    </Typography>
-                  </div>
-                </div>
+                <Typography>
+                  Feels like: {Math.round(data.main.feels_like)}°C
+                </Typography>
               </div>
-            )}
-            {isLoading || !data ? (
-              <div
-                role="status"
-                className="max-w-sm animate-pulse hidden sm:block"
-              >
-                <div className="size-32 rounded-full bg-gray-300" />
+              <div className="text-base sm:text-2xl flex flex-col [&>*]:flex [&>*]:items-center [&>*]:gap-3">
+                <Typography variant="inherit">
+                  <FaDroplet size={20} className="text-blue-500" />{" "}
+                  {data.main.humidity}%
+                </Typography>
+                <Typography variant="inherit">
+                  <FaWind size={20} className="text-slate-400" />{" "}
+                  {data.wind.speed} m/s
+                </Typography>
               </div>
-            ) : (
-              <img
-                src={getIconUrl(data.weather[0].icon, 4)}
-                className="absolute top-0 right-0 size-20 sm:size-fit"
-              />
-            )}
-          </CardContent>
-        </CardActionArea>
-      )}
+            </div>
+          </div>
+        )}
+        {isLoading || !data ? (
+          <div role="status" className="max-w-sm animate-pulse hidden sm:block">
+            <div className="size-32 rounded-full bg-gray-300" />
+          </div>
+        ) : (
+          <img
+            src={getIconUrl(data.weather[0].icon, 4)}
+            className="absolute top-0 right-0 size-20 sm:size-fit"
+          />
+        )}
+      </CardContent>
+    );
+  };
+
+  const Actions = () => {
+    return (
       <CardActions className="!px-4 !pb-4">
         {!confirmDeletion ? (
-          <>
-            <Button
-              onClick={() => refetch()}
-              variant="contained"
-              endIcon={<IoMdRefresh />}
-            >
-              Refresh
+          <div className="flex w-full justify-between">
+            <Button onClick={navigateToDetails} variant="contained">
+              View Full
             </Button>
-            <Button
-              onClick={() => setConfirmDeletion(true)}
-              variant="outlined"
-              color="error"
-              endIcon={<FaRegTrashCan size={16} />}
-            >
-              Delete
-            </Button>
-          </>
+            <div className="flex gap-4">
+              <Button
+                onClick={() => refetch()}
+                variant="outlined"
+                endIcon={<IoMdRefresh />}
+              >
+                Refresh
+              </Button>
+              <Button
+                onClick={() => setConfirmDeletion(true)}
+                variant="outlined"
+                color="error"
+                endIcon={<FaRegTrashCan size={16} />}
+              >
+                Delete
+              </Button>
+            </div>
+          </div>
         ) : (
-          <>
+          <div className="flex w-full gap-4 justify-end">
             <Button
               onClick={() => deleteCity(id)}
               variant="contained"
@@ -136,9 +134,24 @@ const CityCard: FC<CityCardProps> = ({ city, id, ...rest }) => {
             >
               Cancel
             </Button>
-          </>
+          </div>
         )}
       </CardActions>
+    );
+  };
+
+  return (
+    <Card {...rest} className="bg-white">
+      {isError ? (
+        <Typography variant="h4" className="p-4 pb-0">
+          {cityName} - Error
+        </Typography>
+      ) : (
+        <CardActionArea onClick={navigateToDetails}>
+          <Content />
+        </CardActionArea>
+      )}
+      <Actions />
     </Card>
   );
 };
