@@ -1,19 +1,32 @@
 import { Button, TextField } from "@mui/material";
 import { WeatherContext } from "@weather/context";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AutoComplete from "./AutoComplete";
 
 const AddCityPanel = () => {
   const { addCity } = useContext(WeatherContext);
   const [value, setValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
 
-  const handleAddTask = () => {
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value]);
+
+  const handleAddCity = (city: string) => {
     setValue("");
-    addCity({ name: value });
+    setDebouncedValue("");
+    addCity({ name: city });
   };
 
   return (
     <div className="mx-auto flex gap-4 w-full">
-      <div className="flex-1 bg-white rounded-lg">
+      <div className="flex-1 bg-white rounded-lg relative">
         <TextField
           type="text"
           placeholder="Enter city name"
@@ -28,15 +41,19 @@ const AddCityPanel = () => {
           size="medium"
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleAddTask();
+            if (e.key === "Enter") handleAddCity(value);
           }}
+        />
+        <AutoComplete
+          value={debouncedValue}
+          onItemClick={(city: string) => handleAddCity(city)}
         />
       </div>
       <Button
         variant="contained"
         size="medium"
         className="!min-w-20"
-        onClick={handleAddTask}
+        onClick={() => handleAddCity(value)}
       >
         Add
       </Button>
