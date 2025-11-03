@@ -1,8 +1,18 @@
-import { WeatherResponse } from "../types/api";
+import { CitiesResponse, WeatherResponse } from "../types/api";
 
 const API_KEY = "eaf690d8c718fd9e8069954a4337495e";
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 const ICON_URL = "https://openweathermap.org/img/wn";
+
+export const fetchCities = async (city: string): Promise<CitiesResponse> => {
+  const res = await fetch(
+    `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
+  );
+
+  if (!res.ok) throw new Error("Something went wrong");
+
+  return res.json();
+};
 
 export const fetchWeatherByCity = async (
   city: string
@@ -14,10 +24,6 @@ export const fetchWeatherByCity = async (
   if (!res.ok) throw new Error("Something went wrong");
 
   return res.json();
-};
-
-export const getIconUrl = (icon: string, scale?: number) => {
-  return `${ICON_URL}/${icon}${scale ? "@" + scale + "x" : ""}.png`;
 };
 
 export const fetchHourlyWeather = async (city: string) => {
@@ -39,4 +45,12 @@ export const fetchHourlyWeather = async (city: string) => {
         temp: item.main.temp,
       })
     );
+};
+
+export const getIconUrl = (icon: string, scale?: number) => {
+  return `${ICON_URL}/${icon}${scale ? "@" + scale + "x" : ""}.png`;
+};
+
+export const getFlagUrl = (country: string) => {
+  return `https://flagsapi.com/${country}/flat/32.png`;
 };
