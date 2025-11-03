@@ -16,3 +16,11 @@ export type WeatherResponse = {
   dt: number;
   sys: { country: string; sunrise: number; sunset: number };
 };
+
+export type CitiesResponse = {
+  name: string;
+  lon: number;
+  lat: number;
+  country: string;
+  state: string;
+}[];
