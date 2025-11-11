@@ -10,8 +10,8 @@ export default function AppRoutes() {
       <Routes>
         <Route path={RoutesEnum.HOME} element={<Home />} />
         <Route path={RoutesEnum.TODO} element={<TodoApp />} />
+        {WeatherApp()}
       </Routes>
-      <WeatherApp />
     </BrowserRouter>
   );
 }

@@ -23,7 +23,12 @@ const HomePage = () => {
         <Header />
         <section className="p-8 items-grid">
           {projects.map(({ title, description, href }) => (
-            <ProjectCard title={title} description={description} href={href} />
+            <ProjectCard
+              key={href}
+              title={title}
+              description={description}
+              href={href}
+            />
           ))}
         </section>
       </div>
