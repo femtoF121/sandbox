@@ -1,3 +1,4 @@
+import Layout from "@/layout";
 import Home from "@/pages/Home";
 import TodoApp from "@/projects/taskList";
 import WeatherApp from "@/projects/weather";
@@ -8,9 +9,11 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={RoutesEnum.HOME} element={<Home />} />
-        <Route path={RoutesEnum.TODO} element={<TodoApp />} />
-        {WeatherApp()}
+        <Route element={<Layout />}>
+          <Route path={RoutesEnum.HOME} element={<Home />} />
+          <Route path={RoutesEnum.TODO} element={<TodoApp />} />
+          {WeatherApp()}
+        </Route>
       </Routes>
     </BrowserRouter>
   );

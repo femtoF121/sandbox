@@ -27,8 +27,8 @@ const WeatherDetailed = () => {
     return (
       <header className="relative pl-14 sm:p-0">
         <button
-          className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full p-3 bg-white hover:bg-gray-200 active:bg-gray-300 transition-colors"
-          onClick={() => navigate("..", { relative: "path" })}
+          className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full p-3 icon-button"
+          onClick={() => navigate(-1)}
         >
           <IoArrowBackOutline size={24} />
         </button>
